@@ -1,3 +1,10 @@
+export const fetchHeroes = (request) => (dispatch) => {// через ReduxThunk
+    dispatch(heroesFetching());
+    request("http://localhost:3001/heroes")
+        .then(data => dispatch(heroesFetched(data)))
+        .catch(() => dispatch(heroesFetchingError()))
+}
+
 export const heroesFetching = () => {
     return {
         type: 'HEROES_FETCHING'
@@ -17,6 +24,19 @@ export const heroesFetchingError = () => {
     }
 }
 
+export const fetchFilters = (request) => (dispatch) => {// через ReduxThunk
+    dispatch(filtersFetching());
+    request("http://localhost:3001/filters")
+        .then(data => dispatch(filtersFetched(data)))
+        .catch(() => dispatch(filtersFetchingError()))
+}
+
+export const filtersFetching = () => {
+    return {
+        type: 'FILTERS_FETCHING'
+    }
+}
+
 export const filtersFetched = (filters) => {
     return {
         type: 'FILTERS_FETCHED',
@@ -24,44 +44,29 @@ export const filtersFetched = (filters) => {
     }
 }
 
-export const heroDeleted = (heroes) => {
+export const filtersFetchingError = () => {
     return {
-        type: 'heroDeleted',
-        payload: heroes
+        type: 'FILTERS_FETCHING_ERROR'
     }
 }
 
-export const heroAdded = (hero) => {
+export const activeFilterChanged = (filter) => {
     return {
-        type: 'heroAdded',
+        type: 'ACTIVE_FILTER_CHANGED',
+        payload: filter
+    }
+}
+
+export const heroCreated = (hero) => {
+    return {
+        type: 'HERO_CREATED',
         payload: hero
     }
 }
 
-export const fichange = (value) => {
+export const heroDeleted = (id) => {
     return {
-        type: 'fichange',
-        payload: value
-    }
-}
-
-export const sichange = (value) => {
-    return {
-        type: 'sichange',
-        payload: value
-    }
-}
-
-export const tichange = (value) => {
-    return {
-        type: 'tichange',
-        payload: value
-    }
-}
-
-export const setActiveFilter = (filter) => {
-    return {
-        type: 'activeFilter',
-        payload: filter
+        type: 'HERO_DELETED',
+        payload: id
     }
 }
