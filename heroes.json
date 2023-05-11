@@ -13,9 +13,9 @@
       "element": "wind"
     },
     {
-      "id": 3,
+      "id": "7850f8b9-bd64-429c-af0c-eda989e8943d",
       "name": "Морской герой",
-      "description": "Как аквамен, но не из DC",
+      "description": "плавать на спине",
       "element": "water"
     }
   ],

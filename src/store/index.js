@@ -1,7 +1,6 @@
-import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import ReduxThunk from 'redux-thunk'
-import heroes from '../reducers/heroes';
-import filters from '../reducers/filters';
+import { configureStore } from '@reduxjs/toolkit';
+import heroes from '../components/heroesList/heroesSlice';//reducer from heroesSlice называем heroes
+import filters from '../components/heroesFilters/filtersSlice';//reducer from filtersSlice называем filters
 
 
 
@@ -16,11 +15,13 @@ const stringMiddleware = () => (next) => (action) => {
 }
 
 
-const store = createStore( 
-    combineReducers({heroes, filters}),
-    compose(applyMiddleware(ReduxThunk, stringMiddleware),
-            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())  
-    );
+
+const store = configureStore({
+    reducer: {heroes, filters},
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(stringMiddleware), //набор дефолтных с тулкита + наш собственный
+    devTools: process.env.NODE_ENV !== 'production', //что бы тулз был только в режиме разработки
+    
+})
 
     
 
